@@ -11,14 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // db.Videos.hasMany(db.Comments,{
-      //   foreignKey:"commentableId",
-      //   constraints: false,
-      //   scope: {
-      //     commentableType: 'video'
-      //   }
-      // });
-      
+     
     }
   }
   video.init({

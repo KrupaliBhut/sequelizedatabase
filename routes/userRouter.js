@@ -1,6 +1,6 @@
 
 const express=require('express');
-const {manytomanyinclude,onetomanyinclude,createtable,scope,polymanytomany,hook,poly,polyselect,crudoperation,manytomany,harddelete,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
+const {manytomayinsert,manytomanyinclude,onetomanyinclude,createtable,scope,polymanytomany,hook,poly,polyselect,crudoperation,harddelete,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
 
 const {onetomany}=require('../controller/userController');
 const {practice}=require('../controller/userController');
@@ -15,8 +15,6 @@ router.route('/onetoone').get(one);
 router.route('/selectdata').get(selectdata);
 router.route('/delete').get(deletedata)
 router.route('/updatedata').get(updatedata);
-
-// dynamic
 router.route('/adduser/').get(addusers);
 router.route('/search').get(search);
 router.route('/pagination').get(pagination);
@@ -34,18 +32,17 @@ router.route('/updateasso').get(Updateasso);
 router.route('/prac').get(prac);
 router.route('/onetomanyinsert').get(onetomanyinsert);
 router.route('/showonetomany').get(showonetomany);
-router.route('/manytomany').get(manytomany);
+
 router.route('/manytomanyjun').get(manytomanyjun);
-manytomanyjunselect
 router.route('/manytomanyjunselect').get(manytomanyjunselect);
-harddelete
 router.route('/harddelete').get(harddelete);
 router.route('/scope').get(scope);
 router.route('/hook').get(hook);
 router.route('/poly').get(poly);
 router.route('/polyselect').get(polyselect);
 router.route('/polymanytomany').get(polymanytomany);
-
 router.route('/onetomanyinclude').get(onetomanyinclude);
 router.route('/manytomanyinclude').get(manytomanyinclude);
+
+router.route('/manytomayinsert').get(manytomayinsert);
 module.exports = router;
