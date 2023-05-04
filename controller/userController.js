@@ -385,7 +385,6 @@ var onetomany2 = async (req, res) => {
         [Op.or]: {
           name: [name],
           email: [email],
-          // [Op.and]: [{ name:name }, { email:email}],
         },
       },
     });
@@ -416,7 +415,6 @@ var practice = async (req, res) => {
         [Op.and]: {
           name: [name],
           email: [email],
-          // [Op.and]: [{ name:name }, { email:email}],
         },
       },
     });
