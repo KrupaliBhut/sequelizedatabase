@@ -1,6 +1,6 @@
 
 const express=require('express');
-const {manytomayinsert,manytomanyinclude,onetomanyinclude,scope,polymanytomany,hook,poly,polyselect,crudoperation,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
+const {manyTomanysel,manytomayvideo,manytomayinsert,onetomanyinclude,scope,polymanytomany,hook,poly,polyselect,crudoperation,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
 
 const {onetomany}=require('../controller/userController');
 const {practice}=require('../controller/userController');
@@ -39,7 +39,7 @@ router.route('/poly').get(poly);
 router.route('/polyselect').get(polyselect);
 router.route('/polymanytomany').get(polymanytomany);
 router.route('/onetomanyinclude').get(onetomanyinclude);
-router.route('/manytomanyinclude').get(manytomanyinclude);
-
+router.route('/manytomayvideo').get(manytomayvideo);
 router.route('/manytomayinsert').get(manytomayinsert);
+router.route('/manyTomanysel').get(manyTomanysel);
 module.exports = router;

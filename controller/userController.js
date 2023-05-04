@@ -747,22 +747,16 @@ var hook = async (req, res) => {
 // ...............polymorphics...........
 var poly = async (req, res) => {
   try {
-    let { title, url, title2, text, type, title3, id } = req.body;
+    let { title, url, title2, text, commentableType, title3, commentableId } = req.body;
     let datainsert = await Images.create({
       title: title,
       url: url,
     });
-    if (datainsert) {
-      await Videos.create({
-        title: title2,
-        text: text,
-      });
-    }
     if (datainsert && datainsert.dataValues.id) {
       await Comments.create({
         title: title3,
-        commentableType: type,
-        commentableId: id,
+        commentableType: commentableType,
+        commentableId: commentableId,
       });
     }
     let responce = {
@@ -777,6 +771,44 @@ var poly = async (req, res) => {
     });
   }
 };
+var manytomayvideo = async (req, res) => {
+  try {
+    let { title, url, title2, text, commentableType, title3, commentableId } = req.body;
+    let datainsert2 = await Videos.create({
+      title: title,
+      text: text,
+    });
+   
+    if (datainsert2) {
+      await Comments.create({
+        title: title3,
+        commentableType: commentableType,
+        commentableId: commentableId,
+      });
+    }
+    let responce = {
+      success: true,
+      data: datainsert2,
+    };
+    res.status(200).json(responce);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error,
+    });
+  }
+};
+let manyTomanysel = async (req, res) => {
+  try {
+    let data = await Comments.findAll({
+      include: [{model: Images,Videos}],
+    });
+    return res.json(data);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 var polyselect = async (req, res) => {
   try {
     let polyselect = await Images.findAll({
@@ -817,26 +849,7 @@ var polymanytomany = async (req, res) => {
     });
   }
 };
-var manytomanyinclude = async (req, res) => {
-  const post_tag = req.body.post_tag;
- let inc =  await Users.create(
-    {
-      name: req.body.name,
-      email: req.body.email,
-      Post_tag: [...post_tag],
-    },
-   
-    {
-      include: [db.post_tags],
-    }
-  )
-  let responce = {
-    success: true,
-    data: inc,
-  };
-  res.status(200).json(responce);
 
-};
 var onetomanyinclude = async (req, res) => {
   try {
     const { email, name } = re.body;
@@ -898,4 +911,6 @@ module.exports = {
   scope,
   hook,
   manytomayinsert,
+  manytomayvideo,
+  manyTomanysel
 };

@@ -50,9 +50,9 @@ db.Images = require('../models/image')(sequelize,DataTypes);
 db.Comments = require('../models/comments')(sequelize,DataTypes);
 db.Tag_taggable = require('../models/tag_taggable')(sequelize,DataTypes);
 
-db.users.hasOne(db.employee, {foreignKey:'userId'});
-db.users.hasMany(db.employee,{foreignKey:'userId'});
-db.employee.belongsTo(db.users,{foreignKey:'userId'});
+// db.users.hasOne(db.employee, {foreignKey:'userId'});
+// db.users.hasMany(db.employee,{foreignKey:'userId'});
+// db.employee.belongsTo(db.users,{foreignKey:'userId'});
 
 db.users.addScope('checkstatus',{
   where :{
@@ -66,8 +66,8 @@ db.users.addScope('includeposts',{
     }
 })
 // one to many 
-db.users.hasMany(db.posts,{foreignKey:'userId'});
-db.posts.belongsTo(db.users,{foreignKey:'userId'});
+// db.users.hasMany(db.posts,{foreignKey:'userId'});
+// db.posts.belongsTo(db.users,{foreignKey:'userId'});
 // many to many 
 db.posts.belongsToMany(db.tags, {through:'post_tags'});
 db.tags.belongsToMany(db.posts,{through:'post_tags'});
