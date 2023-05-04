@@ -66,8 +66,8 @@ db.users.addScope('includeposts',{
     }
 })
 // one to many 
-// db.users.hasMany(db.posts,{foreignKey:'userId'});
-// db.posts.belongsTo(db.users,{foreignKey:'userId'});
+db.users.hasMany(db.posts,{foreignKey:'userId'});
+db.posts.belongsTo(db.users,{foreignKey:'userId'});
 // many to many 
 db.posts.belongsToMany(db.tags, {through:'post_tags'});
 db.tags.belongsToMany(db.posts,{through:'post_tags'});
