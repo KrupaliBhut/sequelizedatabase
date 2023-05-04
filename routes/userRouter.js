@@ -1,13 +1,12 @@
 
 const express=require('express');
-const {manytomayinsert,manytomanyinclude,onetomanyinclude,createtable,scope,polymanytomany,hook,poly,polyselect,crudoperation,harddelete,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
+const {manytomayinsert,manytomanyinclude,onetomanyinclude,scope,polymanytomany,hook,poly,polyselect,crudoperation,manytomanyjunselect,manytomanyjun,showonetomany,ope,prac,one,onetomanyinsert,bulk,selectdata,updatedata,addusers,search,pagination,deletedata,softdelete,restore,like,count,searchpag,Insertasso,Updateasso}=require('../controller/userController');
 
 const {onetomany}=require('../controller/userController');
 const {practice}=require('../controller/userController');
 const {practice2}=require('../controller/userController');
 const {onetomany2}=require('../controller/userController');
 const router=express.Router();
-router.route('/add').get(createtable);
 router.route('/bulkadd').get(bulk);
 router.route('/crud').get(crudoperation);
 router.route('/select').get(ope);
@@ -32,10 +31,8 @@ router.route('/updateasso').get(Updateasso);
 router.route('/prac').get(prac);
 router.route('/onetomanyinsert').get(onetomanyinsert);
 router.route('/showonetomany').get(showonetomany);
-
 router.route('/manytomanyjun').get(manytomanyjun);
 router.route('/manytomanyjunselect').get(manytomanyjunselect);
-router.route('/harddelete').get(harddelete);
 router.route('/scope').get(scope);
 router.route('/hook').get(hook);
 router.route('/poly').get(poly);

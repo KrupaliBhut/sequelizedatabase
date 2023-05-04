@@ -9,24 +9,6 @@ const Post_tag = db.post_tags;
 const Images = db.Images;
 const Videos = db.Videos;
 const Comments = db.Comments;
-var createtable = async (req, res) => {
-  try {
-    let data = await Users.create({
-      name: "krupali",
-      email: "krupali@gmail.com",
-    });
-    let response = {
-      success: true,
-      data: "ok",
-    };
-    res.status(200).json(response);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error,
-    });
-  }
-};
 var bulk = async (req, res) => {
   try {
     //  bulkcreate
@@ -53,9 +35,10 @@ var selectdata = async (req, res) => {
     let selectdata = await Users.findAll({
       attributes: ["name"],
     });
+    let countdata = await Users.count()
     let response = {
       success: true,
-      data: selectdata,
+      data: countdata,
     };
     res.status(200).json(response);
   } catch (error) {
@@ -358,13 +341,6 @@ var onetomanyinsert = async (req, res) => {
         content: content,
         UserId: datainsertmany.dataValues.id,
       });
-
-    //   await Posts.create({
-    //     name: name,
-    //     title: title,
-    //     content: content,
-    //     UserId: datainsertmany.dataValues.id,
-    //   });
     }
     let response = {
       success: true,
@@ -655,14 +631,6 @@ var manytomanyjun = async (req, res) => {
       tagId: tagId,
     });
   }
-  if (datainsertmany) {
-    await Post_tag.create({
-      PostId: datainsertmany.dataValues.id,
-      tagId: tagId,
-    });
-  }
-  console.log("post", datainsertmany.dataValues.id);
-  // console.log("tag", TagId)
 
   let response = {
     success: true,
@@ -726,22 +694,6 @@ var manytomayinsert = async (req,res)=>{
       res.status(200).json(response);
     }
 }
-var harddelete = async (req, res) => {
-  try {
-    let { PostId } = req.body;
-    let deletehard = await Post_tag.destroy({ where: { PostId: PostId } });
-    let responce = {
-      success: true,
-      data: deletehard,
-    };
-    res.status(200).json(responce);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error,
-    });
-  }
-};
 var scope = async (req, res) => {
   let scope = await Users.scope("checkstatus").findAll({});
   let scopes = await Users.scope("includeposts").findAll({});
@@ -758,20 +710,16 @@ var scope = async (req, res) => {
       include: [
         {
           model: Posts,
-
-          // attributes: [{name: name,title: title, content: content}]
         },
       ],
       include: [
         {
           model: Tags,
-          // attributes: [{name:name}]
         },
       ],
       include: [
         {
           model: Post_tag,
-          // attributes: [{PostId: postId, tagId: tagId}]
         },
       ],
     }
@@ -872,28 +820,24 @@ var polymanytomany = async (req, res) => {
   }
 };
 var manytomanyinclude = async (req, res) => {
-  const post = req.body.post;
-  const tag = req.body.tag;
-  await Users.create(
+  const post_tag = req.body.post_tag;
+ let inc =  await Users.create(
     {
       name: req.body.name,
       email: req.body.email,
-      Posts: [...post],
-      Tags: [...tag],
+      Post_tag: [...post_tag],
     },
+   
     {
-      include: [db.posts],
-    },
-    {
-      include: [db.tags],
+      include: [db.post_tags],
     }
   )
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
+  let responce = {
+    success: true,
+    data: inc,
+  };
+  res.status(200).json(responce);
+
 };
 var onetomanyinclude = async (req, res) => {
   try {
@@ -927,7 +871,6 @@ module.exports = {
   polymanytomany,
   polyselect,
   poly,
-  createtable,
   bulk,
   selectdata,
   updatedata,
@@ -952,10 +895,8 @@ module.exports = {
   prac,
   onetomanyinsert,
   showonetomany,
- 
   manytomanyjun,
   manytomanyjunselect,
-  harddelete,
   scope,
   hook,
   manytomayinsert,
